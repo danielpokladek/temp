@@ -25,11 +25,19 @@ public class Cam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        camRot = cam.transform.rotation.eulerAngles;
+        //camRot = cam.transform.rotation.eulerAngles;
         //camRot.x = Mathf.Clamp(camRot.x, 270, 90);
         //camRot.y = Mathf.Clamp(camRot.y, -25, 25);
 
         transform.rotation = Quaternion.Euler(camRot);
+
+
+        Matrix4x4 m1 = sphere.transform.localToWorldMatrix * portalInner.transform.worldToLocalMatrix *
+                       cam.transform.localToWorldMatrix;
+
+        this.transform.SetPositionAndRotation(m1.GetColumn(3), m1.rotation);
+
+
 
         //if (camRot.y > 90 && camRot.y < 270)
         //{
